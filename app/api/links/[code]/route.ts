@@ -1,8 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req: Request, { params }: { params: { code: string } }) {
-  const code = params.code;
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ code: string }> }
+) {
+  const { code } = await context.params;
 
   const link = await prisma.link.findUnique({
     where: { code },
@@ -15,8 +18,11 @@ export async function GET(req: Request, { params }: { params: { code: string } }
   return NextResponse.json(link);
 }
 
-export async function DELETE(req: Request, { params }: { params: { code: string } }) {
-  const code = params.code;
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ code: string }> }
+) {
+  const { code } = await context.params;
 
   const link = await prisma.link.findUnique({ where: { code } });
   if (!link) {
