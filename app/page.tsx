@@ -80,7 +80,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-15 py-10">
-      {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center space-x-3">
           <div className="w-9 h-9 bg-blue-600 text-white rounded-lg flex items-center justify-center">
@@ -98,16 +97,14 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Alerts */}
       {message && (
-        <div className="mb-4 p-4 bg-blue-50 text-blue-700 border border-blue-300 rounded-lg">
+        <div className="mb-4 px-4 py-3 bg-blue-100 text-blue-800 border border-blue-300 rounded-xl shadow-sm">
           {message}
         </div>
       )}
 
-      {/* New Link Form */}
       {showForm && (
-        <div className="bg-white p-6 rounded-lg shadow mb-6 text-dark-gray-700">
+        <div className="bg-white p-6 rounded-xl shadow-lg mb-6 border border-gray-200 text-dark-gray-700">
           <h2 className="text-lg font-semibold mb-4 text-gray-700">Create Short Link</h2>
 
           <div className="space-y-4">
@@ -115,14 +112,14 @@ export default function Dashboard() {
               placeholder="Target URL (Required)"
               value={form.targetUrl}
               onChange={(e) => setForm({ ...form, targetUrl: e.target.value })}
-              className="w-full border px-3 py-2 rounded text-gray-700"
+              className="w-full border border-gray-300 px-3 py-2.5 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-400 outline-none transition"
             />
 
             <input
               placeholder="Custom Code (Optional, 6-8 chars)"
               value={form.code}
               onChange={(e) => setForm({ ...form, code: e.target.value })}
-              className="w-full border px-3 py-2 rounded text-gray-700"
+              className="w-full border border-gray-300 px-3 py-2.5 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-400 outline-none transition"
             />
 
             <div className="flex space-x-3">
@@ -145,18 +142,16 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Search */}
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
-          className="w-full pl-10 px-3 py-2 border rounded-lg text-gray-700"
+          className="w-full pl-10 px-3 py-2.5 border border-gray-300 rounded-xl text-gray-700 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none transition"
           placeholder="Search links..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      {/* Table */}
       <div className="bg-white rounded-lg shadow overflow-auto">
         <table className="w-full">
           <thead className="bg-gray-100 text-gray-700">
@@ -171,14 +166,20 @@ export default function Dashboard() {
 
           <tbody>
             {filtered.map((link) => (
-              <tr key={link.code} className="border-t hover:bg-gray-50">
+              <tr key={link.code} className="border-t hover:bg-gray-50 transition hover:shadow-sm">
                 <td className="p-3">
-                  <code className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_BASE_URL}/${link.code}`}
+                    target="_blank"
+                    className="bg-blue-100 text-blue-700 px-2 py-1 rounded cursor-pointer hover:bg-blue-200 transition"
+                  >
                     {link.code}
-                  </code>
+                  </a>
                 </td>
 
-                <td className="p-3 truncate max-w-xs text-gray-500">{link.targetUrl}</td>
+                <td className="p-3 max-w-xs">
+                  <p className="text-gray-600 truncate hover:text-gray-800">{link.targetUrl}</p>
+                </td>
 
                 <td className="p-3">
                   <div className="flex items-center space-x-1 text-gray-500">
@@ -192,14 +193,16 @@ export default function Dashboard() {
                 <td className="p-3 flex items-center space-x-3">
                   <button
                     onClick={() => copyLink(link.code)}
-                    className="text-blue-600 hover:text-blue-800"
+                    className="text-gray-500 hover:text-blue-600 transition"
+                    title="Copy short link"
                   >
                     <Copy className="w-4" />
                   </button>
 
                   <button
                     onClick={() => deleteLink(link.code)}
-                    className="text-red-600 hover:text-red-800"
+                    className="text-gray-500 hover:text-red-600 transition"
+                    title="Delete link"
                   >
                     <Trash2 className="w-4" />
                   </button>
