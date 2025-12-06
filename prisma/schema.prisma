@@ -14,12 +14,4 @@ model Link {
   clicks      Int      @default(0)
   lastClicked DateTime?
   createdAt   DateTime @default(now())
-  events      ClickEvent[]
-}
-
-model ClickEvent {
-  id        String   @id @default(uuid())
-  link      Link     @relation(fields: [linkId], references: [id])
-  linkId    String
-  createdAt DateTime @default(now())
 }
