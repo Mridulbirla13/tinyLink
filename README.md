@@ -8,7 +8,7 @@ This project was built as a take-home assignment for a Full Stack / Software Eng
 ---
 
 ## 🚀 Live Demo
-🔗 **App:** https://tiny-link-sigma-ashen.vercel.app/  
+🔗 **App:** https://tiny-link-sage.vercel.app/ 
 🔗 **GitHub Repo:** https://github.com/Mridulbirla13/tinyLink  
 
 ---
